@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- yq command line processor utility, [get it here.](https://github.com/mikefarah/yq/releases)
+- yq - YAML command line processor utility, [get it here.](https://github.com/mikefarah/yq/releases)
 - kustomize, oc , or kubectl cli tool. 
 - kustomize-sopssecretgenerator - a plugin that decrypts on the fly the secrets  before creating the secrets during the kustomize build process, installation instructions [here](https://github.com/goabout/kustomize-sopssecretgenerator#installation).
   This tutorial assumes using this plugin, but you can easily introduce your own plugin that will integrate with kustomize, and only change the crds in [secrets directory](./secrets) to crds of your own plugin.
