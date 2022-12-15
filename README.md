@@ -60,6 +60,12 @@ sops -e -i --pgp `gpg --list-keys "KustomizeDemo" | grep pub -A1 | grep -E '^ ' 
 4. Verify that files were encrypted:
 ```shell
 cat secrets/secrets.env 
+
+# see the fingerprint that identify the key pair used to encrypt and decrypt the content
+ grep _fp secrets/secrets.env | awk -F = '{print "Fingerprint=" $2}'
+```
+Output:
+```shell
 user=ENC[AES256_GCM,data:FUYbxD2M,iv:YJJhMFcgFYbA4SznSlLhkboPPJTaBC5Z1i3Tkg80iws=,tag:aEO4BVdHKtdKbzBzXtbdlQ==,type:str]
 password=ENC[AES256_GCM,data:jBcshtBm3H7fPg==,iv:i2mlRTLmnsKOcP04xmOpJXQPTEZ1U4hXO3Da/2tKrmU=,tag:O6s9S121WliN62VnQI+yaA==,type:str]
 DBAddress=ENC[AES256_GCM,data:JEYzJSQm8LcJLno1/i5C97Y=,iv:+p3oMrUFb+MXSFhaB/IEs/emgfRArY4zcyGUFsAuiVc=,tag:r4509UvafQyx8vJCdU+esQ==,type:str]
@@ -72,11 +78,6 @@ sops_pgp__list_0__map_created_at=2022-12-15T13:39:38Z
 sops_pgp__list_0__map_fp=2E6456AEB08601FF886147B9BD3A044912B418E2
 sops_version=3.7.1
 
-# see the fingerprint that identify the key pair used to encrypt and decrypt the content
- grep _fp secrets/secrets.env | awk -F = '{print $2}'
-```
-Output:
-```shell
 2E6456AEB08601FF886147B9BD3A044912B418E2
 ```
 5. check kustomize integration with sopsSecretsGenerator:
