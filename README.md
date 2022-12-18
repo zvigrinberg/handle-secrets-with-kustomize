@@ -105,3 +105,11 @@ user=myUser
 {"auths":{"quay.io":{"username":"youruser","password":"yourpassword","auth":"eW91cnVzZXI6eW91cnBhc3N3b3Jk"}}}
 ```
 
+8. Since the encryption is an asymmetric encryption, we must maintain and keep the private key in a well secured place and protect it as a secret with the proper protections(only privileged users will be able to access it/use it), the public key can be given to users and clients in order to encrypt data, the decryption will be by the private key only, following is a way how to export the public key from Gnu-PG and import it to another instance of Gnu-PG on another machine, so clients will be able to encrypt only, but not decrypt:
+```shell
+# Export public key from source machine
+gpg --export -a $(gpg --list-keys "KustomizeDemo" | grep pub -A1 | grep -E '^ ' | awk '{print $1}') > public.pgp
+# Import public key in client machine
+gpg --import public.pgp
+```
+
