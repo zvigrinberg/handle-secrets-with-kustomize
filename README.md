@@ -1,4 +1,6 @@
-# handle-secrets-with-kustomize
+# Handle secrets with kustomize
+
+## Goal: To Handle/Manage secrets securely with kustomize.
 
 ## Prerequisites
 
@@ -90,7 +92,7 @@ oc kustomize --enable-alpha-plugins .
 alias build-kustomize-with-secrets="oc kustomize --enable-alpha-plugins ."
 ```
 
-7. Validate that secrets were decrypted correctly on the fly:
+7. Validate that secrets were decrypted correctly on the fly before kustomize created secrets out of it:
 ```shell
 for SECRET in DBAddress password token user ; do build-kustomize-with-secrets | yq eval '.data.'$SECRET'' |  grep -v -E 'null|---' | base64 -d | awk '{print "'$SECRET'""=" $1}'  ; done
 build-kustomize-with-secrets | yq eval '.data.".dockerconfigjson"' | grep -v -E 'null|---' | base64 -d
